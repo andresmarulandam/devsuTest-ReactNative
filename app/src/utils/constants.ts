@@ -86,4 +86,23 @@ export const TEST_IDS = {
   modalContainer: 'modal-container',
   modalConfirm: 'modal-confirm',
   modalCancel: 'modal-cancel',
+  skeletonCard: 'skeleton-card',
+  skeletonDetail: 'skeleton-detail',
+} as const;
+
+export const SCREEN_TITLES = {
+  home: 'Banco',
+  detail: 'Detalle del Producto',
+  add: 'Agregar Producto',
+  edit: 'Editar Producto',
+} as const;
+
+export const PLACEHOLDERS = {
+  search: 'Buscar productos...',
+  id: 'Ingresa el ID del producto',
+  name: 'Ingresa el nombre del producto',
+  description: 'Ingresa la descripción del producto',
+  logo: 'Ingresa la URL del logo',
+  dateRelease: 'Selecciona fecha de liberación',
+  dateRevision: 'Selecciona fecha de revisión',
 } as const;

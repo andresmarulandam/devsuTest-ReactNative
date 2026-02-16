@@ -1,50 +1,35 @@
-# Welcome to your Expo app 👋
+# Prueba Técnica React Native - Productos Financieros
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicación móvil desarrollada con React Native (Expo) y TypeScript para la gestión de productos financieros. Permite visualizar, buscar, agregar, editar y eliminar productos.
 
-## Get started
+## 📋 Requisitos Previos
 
-1. Install dependencies
+- Node.js (versión 18 o superior)
+- npm o yarn
+- Expo CLI
+- Android Studio (para emulador) o dispositivo físico con Expo Go
+- Backend local corriendo
 
-   ```bash
-   npm install
-   ```
+## 🚀 Instalación
 
-2. Start the app
+1. **Clonar el repositorio**
 
-   ```bash
-   npx expo start
-   ```
+git clonehttps://github.com/andresmarulandam/devsuTest-ReactNative.git
+cd DevsuTest-ReactNative
 
-In the output, you'll find options to open the app in a
+2. **Instalar dependencias**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+npm install
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+3. Configurar variables de entorno
 
-## Get a fresh project
+Editar .env con la URL de tu backend
 
-When you're ready, run:
+4. Iniciar el backend
+5. Iniciar la app
+   npm start
 
-```bash
-npm run reset-project
-```
+## Pruebas Unitarias
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Ejecutar todas las pruebas: npm test
+  -Ejecutar pruebas con cobertura: npm run test:coverage

@@ -88,6 +88,7 @@ export const TEST_IDS = {
   modalCancel: 'modal-cancel',
   skeletonCard: 'skeleton-card',
   skeletonDetail: 'skeleton-detail',
+  detailContainer: 'detail-container',
 } as const;
 
 export const SCREEN_TITLES = {
@@ -105,4 +106,15 @@ export const PLACEHOLDERS = {
   logo: 'Ingresa la URL del logo',
   dateRelease: 'Selecciona fecha de liberación',
   dateRevision: 'Selecciona fecha de revisión',
+} as const;
+
+export const BUTTON_TEXTS = {
+  add: 'Agregar',
+  edit: 'Editar',
+  delete: 'Eliminar',
+  save: 'Guardar',
+  cancel: 'Cancelar',
+  reset: 'Reiniciar',
+  confirm: 'Confirmar',
+  back: 'Volver',
 } as const;

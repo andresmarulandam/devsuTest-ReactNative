@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
+  Animated,
+  Dimensions,
   Modal as RNModal,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-
 import { COLORS } from '../../utils/constants';
 import { Button } from './Button';
+
+const { height } = Dimensions.get('window');
 
 interface ModalProps {
   visible: boolean;
@@ -31,18 +34,57 @@ export const Modal: React.FC<ModalProps> = ({
   confirmVariant = 'danger',
   testID,
 }) => {
+  const slideAnim = useRef(new Animated.Value(height)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      Animated.parallel([
+        Animated.timing(slideAnim, {
+          toValue: height,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [visible]);
+
   return (
     <RNModal
       visible={visible}
       transparent
-      animationType="fade"
+      animationType="none"
       onRequestClose={onCancel}
       testID={testID}
     >
       <TouchableWithoutFeedback onPress={onCancel}>
-        <View style={styles.overlay}>
+        <Animated.View style={[styles.overlay, { opacity: fadeAnim }]}>
           <TouchableWithoutFeedback>
-            <View style={styles.container}>
+            <Animated.View
+              style={[
+                styles.container,
+                { transform: [{ translateY: slideAnim }] },
+              ]}
+            >
+              <View style={styles.handleBar} />
               <Text style={styles.message}>{message}</Text>
               <View style={styles.buttonsContainer}>
                 <Button
@@ -60,9 +102,9 @@ export const Modal: React.FC<ModalProps> = ({
                   testID="modal-cancel"
                 />
               </View>
-            </View>
+            </Animated.View>
           </TouchableWithoutFeedback>
-        </View>
+        </Animated.View>
       </TouchableWithoutFeedback>
     </RNModal>
   );
@@ -72,27 +114,35 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   container: {
     backgroundColor: COLORS.white,
-    borderRadius: 12,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     padding: 20,
-    width: '80%',
-    maxWidth: 400,
+    paddingBottom: 30,
+    minHeight: 200,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: COLORS.text,
-    marginBottom: 10,
+  handleBar: {
+    width: 40,
+    height: 4,
+    backgroundColor: COLORS.lightGray,
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   message: {
     fontSize: 16,
     color: COLORS.text,
     marginBottom: 20,
     lineHeight: 22,
+    textAlign: 'center',
   },
   buttonsContainer: {
     justifyContent: 'space-between',

@@ -54,7 +54,6 @@ export default function EditProductScreen() {
     }
   };
 
-  // ❗ No llamar a useForm hasta que tengamos el producto
   const {
     values,
     errors,
@@ -66,11 +65,10 @@ export default function EditProductScreen() {
     reset,
     setFieldValue,
   } = useForm({
-    initialValues: product || {}, // Si product es null, pasa objeto vacío
+    initialValues: product || {},
     onSubmit: handleSubmit,
   });
 
-  // Mostrar skeleton mientras carga
   if (loading || loadingProduct) {
     return (
       <SafeAreaView style={styles.container}>
@@ -80,7 +78,6 @@ export default function EditProductScreen() {
     );
   }
 
-  // Si no hay producto después de cargar, mostrar error
   if (!product) {
     return (
       <SafeAreaView style={styles.container}>

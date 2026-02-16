@@ -141,7 +141,6 @@ export const validateProduct = async (
 
   return errors;
 };
-// Formatea una fecha Date a string YYYY-MM-DD
 export const formatDateToString = (date: Date): string => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -149,7 +148,6 @@ export const formatDateToString = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
-//Parsea un string YYYY-MM-DD a Date
 export const parseStringToDate = (dateString: string) => {
   const [year, month, day] = dateString.split('-').map(Number);
   return new Date(year, month - 1, day);

@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Product, ProductFormErrors } from '../types';
+import { ensureDate } from '../utils/helpers';
 import { validateProduct } from '../utils/validators';
 
 interface UseFormProps {
@@ -47,7 +48,6 @@ export const useForm = ({
 
   const handleSubmit = useCallback(async () => {
     setLoading(true);
-    // Marcar todos los campos como touched
     setTouched(
       new Set([
         'id',
@@ -77,7 +77,14 @@ export const useForm = ({
   }, [values, validate, onSubmit]);
 
   const reset = useCallback(() => {
-    setValues(initialValues);
+    const resetValues = {
+      ...initialValues,
+      date_release: ensureDate(initialValues.date_release) || new Date(),
+      date_revision:
+        ensureDate(initialValues.date_revision) ||
+        new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+    };
+    setValues(resetValues);
     setErrors({});
     setTouched(new Set());
   }, [initialValues]);

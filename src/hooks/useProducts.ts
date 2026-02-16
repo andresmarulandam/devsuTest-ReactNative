@@ -6,6 +6,7 @@ export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingProduct, setLoadingProduct] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -16,13 +17,30 @@ export const useProducts = () => {
       const data = await productsApi.getAll();
       setProducts(data);
       setFilteredProducts(data);
-    } catch (error) {
+    } catch (err) {
       setError('Error al cargar los productos');
-      console.error(error);
+      console.error(err);
     } finally {
       setLoading(false);
     }
   }, []);
+
+  const getProductById = useCallback(
+    async (id: string): Promise<Product | null> => {
+      try {
+        setLoadingProduct(true);
+        const data = await productsApi.getAll();
+        const foundProduct = data.find((p) => p.id === id);
+        return foundProduct || null;
+      } catch (err) {
+        console.error('Error al buscar producto:', err);
+        return null;
+      } finally {
+        setLoadingProduct(false);
+      }
+    },
+    [products],
+  );
 
   useEffect(() => {
     loadProducts();
@@ -44,14 +62,8 @@ export const useProducts = () => {
           product.id.toLowerCase().includes(termLower) ||
           product.description.toLowerCase().includes(termLower),
       );
-      setFilteredProducts(filtered);
-    },
-    [products],
-  );
 
-  const getProductById = useCallback(
-    (id: string): Product | undefined => {
-      return products.find((p) => p.id === id);
+      setFilteredProducts(filtered);
     },
     [products],
   );
@@ -63,9 +75,9 @@ export const useProducts = () => {
         await productsApi.create(product);
         await loadProducts();
         return true;
-      } catch (error) {
+      } catch (err) {
         setError('Error al crear el producto');
-        console.error(error);
+        console.error(err);
         return false;
       }
     },
@@ -79,9 +91,9 @@ export const useProducts = () => {
         await productsApi.update(id, product);
         await loadProducts();
         return true;
-      } catch (error) {
+      } catch (err) {
         setError('Error al actualizar el producto');
-        console.error(error);
+        console.error(err);
         return false;
       }
     },
@@ -95,9 +107,9 @@ export const useProducts = () => {
         await productsApi.delete(id);
         await loadProducts();
         return true;
-      } catch (error) {
-        setError('Error al actualizar el producto');
-        console.error(error);
+      } catch (err) {
+        setError('Error al eliminar el producto');
+        console.error(err);
         return false;
       }
     },
@@ -124,12 +136,13 @@ export const useProducts = () => {
     products,
     filteredProducts,
     loading,
+    loadingProduct,
     error,
     searchTerm,
     totalCount,
     loadProducts,
-    filterProducts,
     getProductById,
+    filterProducts,
     createProduct,
     updateProduct,
     deleteProduct,

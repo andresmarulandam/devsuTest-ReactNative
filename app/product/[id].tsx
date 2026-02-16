@@ -17,16 +17,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { getProductById, deleteProduct, loadingProduct } = useProducts();
+  const { getProductById, deleteProduct, loadingProduct, products } =
+    useProducts();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadProduct();
-  }, [id]);
 
   const loadProduct = async () => {
     setLoading(true);
@@ -34,6 +31,9 @@ export default function ProductDetailScreen() {
     setProduct(productData);
     setLoading(false);
   };
+  useEffect(() => {
+    loadProduct();
+  }, [id, products]);
 
   const handleEdit = () => {
     router.push(`/product/edit/${id}`);

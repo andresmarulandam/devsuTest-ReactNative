@@ -27,6 +27,10 @@ export const useProducts = () => {
 
   const getProductById = useCallback(
     async (id: string): Promise<Product | null> => {
+      const localProduct = products.find((p) => p.id === id);
+      if (localProduct) {
+        return localProduct;
+      }
       try {
         setLoadingProduct(true);
         const data = await productsApi.getAll();
@@ -89,7 +93,12 @@ export const useProducts = () => {
       try {
         setError(null);
         await productsApi.update(id, product);
-        await loadProducts();
+        setProducts((prevProducts) =>
+          prevProducts.map((p) => (p.id === id ? { ...p, ...product } : p)),
+        );
+        setFilteredProducts((prevFiltered) =>
+          prevFiltered.map((p) => (p.id === id ? { ...p, ...product } : p)),
+        );
         return true;
       } catch (err) {
         setError('Error al actualizar el producto');
@@ -97,7 +106,7 @@ export const useProducts = () => {
         return false;
       }
     },
-    [loadProducts],
+    [],
   );
 
   const deleteProduct = useCallback(

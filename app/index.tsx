@@ -9,17 +9,29 @@ import {
   PLACEHOLDERS,
   TEST_IDS,
 } from '@/src/utils/constants';
-import { router } from 'expo-router';
-import React, { useState } from 'react';
+import { router, useFocusEffect } from 'expo-router';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
-  const { filteredProducts, loading, searchTerm, filterProducts, totalCount } =
-    useProducts();
+  const {
+    filteredProducts,
+    loading,
+    searchTerm,
+    filterProducts,
+    totalCount,
+    loadProducts,
+  } = useProducts();
 
   const [searchInput, setSearchInput] = useState(searchTerm);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadProducts();
+    }, [loadProducts]),
+  );
 
   const handleSearch = (text: string) => {
     setSearchInput(text);
@@ -95,7 +107,6 @@ const styles = StyleSheet.create({
   },
 
   searchContainer: {
-    paddingHorizontal: 16,
     paddingVertical: 12,
     backgroundColor: COLORS.white,
     borderBottomWidth: 1,

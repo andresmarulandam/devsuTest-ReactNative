@@ -1,15 +1,17 @@
+import { Button } from '@/src/components/common/Button';
+import { Header } from '@/src/components/common/Header';
 import { ProductCardSkeleton } from '@/src/components/common/Skeleton';
 import { ProductList } from '@/src/components/products/ProductList';
 import { useProducts } from '@/src/hooks/useProducts';
 import {
+  BUTTON_TEXTS,
   COLORS,
   PLACEHOLDERS,
-  SCREEN_TITLES,
   TEST_IDS,
 } from '@/src/utils/constants';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -44,9 +46,8 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Header title="Banco" />
       <View style={styles.content}>
-        <Text style={styles.title}>{SCREEN_TITLES.home}</Text>
-
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.searchInput}
@@ -69,14 +70,14 @@ export default function HomeScreen() {
           />
         )}
 
-        <View style={styles.fabContainer}>
-          <Text
-            style={styles.fab}
+        <View style={styles.buttonContainer}>
+          <Button
             onPress={handleAddPress}
             testID={TEST_IDS.addButton}
-          >
-            +
-          </Text>
+            title={BUTTON_TEXTS.add}
+            variant="primary"
+            style={styles.button}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -90,18 +91,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    position: 'relative',
+    padding: 16,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.text,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: COLORS.white,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
+
   searchContainer: {
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -123,25 +115,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
   },
-  fabContainer: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
+  buttonContainer: {
+    marginTop: 20,
+    marginBottom: 30,
   },
-  fab: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: COLORS.primary,
-    color: COLORS.white,
-    fontSize: 32,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    overflow: 'hidden',
-    elevation: 4,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+  button: {
+    width: '100%',
   },
 });

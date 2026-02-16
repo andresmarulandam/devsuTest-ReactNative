@@ -46,8 +46,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     backgroundColor: COLORS.white,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: COLORS.border,
   },
   infoContainer: {
     flex: 1,

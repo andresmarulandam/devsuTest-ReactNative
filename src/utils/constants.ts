@@ -7,7 +7,7 @@ export const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
   gray: '#808080',
-  lightGray: '#E9ECEF',
+  lightGray: '#dbdee2',
   darkGray: '#343A40',
   border: '#DEE2E6',
   text: '#212529',
@@ -99,7 +99,7 @@ export const SCREEN_TITLES = {
 } as const;
 
 export const PLACEHOLDERS = {
-  search: 'Buscar productos...',
+  search: 'Search...',
   id: 'Ingresa el ID del producto',
   name: 'Ingresa el nombre del producto',
   description: 'Ingresa la descripción del producto',

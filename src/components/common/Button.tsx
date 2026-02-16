@@ -39,7 +39,7 @@ export const Button: React.FC<ButtonProps> = ({
       case 'danger':
         return COLORS.danger;
       case 'gray':
-        return COLORS.gray;
+        return COLORS.lightGray;
       default:
         return COLORS.primary;
     }
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   text: {
-    color: COLORS.white,
+    color: COLORS.black,
     fontSize: 16,
     fontWeight: '600',
   },

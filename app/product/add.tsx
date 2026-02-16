@@ -1,4 +1,5 @@
 import { Button } from '@/src/components/common/Button';
+import { Header } from '@/src/components/common/Header';
 import { Input } from '@/src/components/common/Input';
 import { useForm } from '@/src/hooks/useForm';
 import { useProducts } from '@/src/hooks/useProducts';
@@ -71,6 +72,7 @@ export default function AddProductScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
+      <Header showBack title="Banco" />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.content}

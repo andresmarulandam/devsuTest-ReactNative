@@ -1,17 +1,17 @@
-import { router } from 'expo-router';
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ProductCardSkeleton } from './src/components/common/Skeleton';
-import { ProductList } from './src/components/products/ProductList';
-import { useProducts } from './src/hooks/useProducts';
+import { ProductCardSkeleton } from '@/src/components/common/Skeleton';
+import { ProductList } from '@/src/components/products/ProductList';
+import { useProducts } from '@/src/hooks/useProducts';
 import {
   COLORS,
   PLACEHOLDERS,
   SCREEN_TITLES,
   TEST_IDS,
-} from './src/utils/constants';
+} from '@/src/utils/constants';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const { filteredProducts, loading, searchTerm, filterProducts, totalCount } =

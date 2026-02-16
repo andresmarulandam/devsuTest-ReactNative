@@ -1,9 +1,9 @@
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export const COLORS = {
-  primary: '#FDB913',
+  primary: '#fde913',
   secondary: '#6C757D',
-  danger: '#DC3545',
+  danger: '#ec4354',
   white: '#FFFFFF',
   black: '#000000',
   gray: '#808080',
@@ -65,7 +65,7 @@ export const SUCCESS_MESSAGES = {
 } as const;
 
 export const CONFIRM_MESSAGES = {
-  deleteProduct: '¿Estás seguro de eliminar este producto?',
+  deleteProduct: '¿Estás seguro de eliminar el producto',
 } as const;
 
 export const TEST_IDS = {

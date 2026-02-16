@@ -12,7 +12,6 @@ import { Button } from './Button';
 
 interface ModalProps {
   visible: boolean;
-  title?: string;
   message: string;
   onConfirm: () => void;
   onCancel: () => void;
@@ -24,7 +23,6 @@ interface ModalProps {
 
 export const Modal: React.FC<ModalProps> = ({
   visible,
-  title,
   message,
   onConfirm,
   onCancel,
@@ -45,22 +43,21 @@ export const Modal: React.FC<ModalProps> = ({
         <View style={styles.overlay}>
           <TouchableWithoutFeedback>
             <View style={styles.container}>
-              {title && <Text style={styles.title}>{title}</Text>}
               <Text style={styles.message}>{message}</Text>
               <View style={styles.buttonsContainer}>
+                <Button
+                  title={confirmText}
+                  onPress={onConfirm}
+                  variant="primary"
+                  style={styles.button}
+                  testID="modal-confirm"
+                />
                 <Button
                   title={cancelText}
                   onPress={onCancel}
                   variant="gray"
                   style={styles.button}
                   testID="modal-cancel"
-                />
-                <Button
-                  title={confirmText}
-                  onPress={onConfirm}
-                  variant={confirmVariant}
-                  style={styles.button}
-                  testID="modal-confirm"
                 />
               </View>
             </View>
@@ -98,11 +95,10 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   buttonsContainer: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 10,
   },
   button: {
-    flex: 1,
+    width: '100%',
   },
 });

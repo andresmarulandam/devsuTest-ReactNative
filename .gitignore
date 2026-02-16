@@ -46,8 +46,4 @@ app-example
 
 # testing
 /coverage
-*.test.ts
-*.test.tsx
-*.spec.ts
-*.spec.tsx
 __snapshots__/

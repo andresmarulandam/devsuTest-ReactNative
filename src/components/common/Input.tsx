@@ -17,11 +17,9 @@ interface InputProps extends TextInputProps {
   labelStyle?: TextStyle;
   inputStyle?: TextStyle;
   testID?: string;
+  editable?: boolean;
 }
 
-/**
- * Input reutilizable con label y mensaje de error
- */
 export const Input: React.FC<InputProps> = ({
   label,
   error,
@@ -31,9 +29,11 @@ export const Input: React.FC<InputProps> = ({
   onBlur,
   onFocus,
   testID,
+  editable = true,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+  const { style: propStyle, ...restProps } = props;
 
   const handleFocus = (e: any) => {
     setIsFocused(true);
@@ -53,13 +53,16 @@ export const Input: React.FC<InputProps> = ({
           styles.input,
           isFocused && styles.inputFocused,
           error && styles.inputError,
+          !editable && styles.inputDisabled,
           inputStyle,
+          propStyle,
         ]}
         placeholderTextColor={COLORS.gray}
         onFocus={handleFocus}
         onBlur={handleBlur}
         testID={testID}
-        {...props}
+        editable={editable}
+        {...restProps}
       />
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
@@ -98,5 +101,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.danger,
     marginTop: 4,
+  },
+  inputDisabled: {
+    backgroundColor: COLORS.lightGray,
+    color: COLORS.gray,
+    borderColor: COLORS.border,
   },
 });

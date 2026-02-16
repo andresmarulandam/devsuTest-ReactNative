@@ -22,9 +22,19 @@ export const useForm = ({
     setValues((prev) => ({ ...prev, [field]: value }));
   }, []);
 
-  const handleBlur = useCallback((field: keyof Product) => {
-    setTouched((prev) => new Set(prev).add(field));
-  }, []);
+  const handleBlur = useCallback(
+    async (field: keyof Product) => {
+      setTouched((prev) => new Set(prev).add(field));
+
+      const fieldValue = { [field]: values[field] };
+      const fieldErrors = await validateProduct(
+        fieldValue as Partial<Product>,
+        field === 'id' && validateId ? validateId : undefined,
+      );
+      setErrors((prev) => ({ ...prev, [field]: fieldErrors[field] }));
+    },
+    [values, validateId],
+  );
 
   const validate = useCallback(async (): Promise<boolean> => {
     const validationErrors = await validateProduct(
@@ -37,6 +47,17 @@ export const useForm = ({
 
   const handleSubmit = useCallback(async () => {
     setLoading(true);
+    // Marcar todos los campos como touched
+    setTouched(
+      new Set([
+        'id',
+        'name',
+        'description',
+        'logo',
+        'date_release',
+        'date_revision',
+      ] as (keyof Product)[]),
+    );
     try {
       const isValid = await validate();
       if (
@@ -61,19 +82,9 @@ export const useForm = ({
     setTouched(new Set());
   }, [initialValues]);
 
-  const setFieldValue = useCallback(
-    (field: keyof Product, value: any) => {
-      setValues((prev) => ({ ...prev, [field]: value }));
-      if (touched.has(field)) {
-        validateProduct({ [field]: value } as Partial<Product>).then(
-          (fieldErrors) => {
-            setErrors((prev) => ({ ...prev, [field]: fieldErrors[field] }));
-          },
-        );
-      }
-    },
-    [touched],
-  );
+  const setFieldValue = useCallback((field: keyof Product, value: any) => {
+    setValues((prev) => ({ ...prev, [field]: value }));
+  }, []);
 
   return {
     values,

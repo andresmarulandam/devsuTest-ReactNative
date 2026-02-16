@@ -112,7 +112,7 @@ export const BUTTON_TEXTS = {
   add: 'Agregar',
   edit: 'Editar',
   delete: 'Eliminar',
-  save: 'Guardar',
+  save: 'Enviar',
   cancel: 'Cancelar',
   reset: 'Reiniciar',
   confirm: 'Confirmar',
